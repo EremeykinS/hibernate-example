@@ -37,7 +37,6 @@ public class User {
   }
 
   /** for Hibernate only */
-  @Deprecated
   User() {}  // problem: somebody can use this constructor and create inconsistent instance
 
   public Integer id() {
