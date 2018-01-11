@@ -38,7 +38,7 @@ public class UserDAO {
   public Set<User> getAll() {
     Criteria criteria = session().createCriteria(User.class); // Criteria query
      // or session().createQuery("FROM User"); // HQL query
-    @SuppressWarnings("unchecked")
+
     List<User> users = criteria.list();
     return new HashSet<>(users);
   }

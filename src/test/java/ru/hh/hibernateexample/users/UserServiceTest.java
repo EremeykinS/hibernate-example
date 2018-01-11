@@ -10,6 +10,7 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class UserServiceTest extends HibernateTestBase {
 
@@ -17,7 +18,7 @@ public class UserServiceTest extends HibernateTestBase {
   private static final UserService userService = new UserService(sessionFactory, userDAO);
 
   @Test
-  public void saveShouldInsertUserInDBAndReturnUserWithId() throws Exception {
+  public void saveShouldInsertUserInDBAndReturnUserWithId() {
 
     User user1 = new User("first name 1", "last name 1");
     User user2 = new User("first name 2", "last name 2");
@@ -35,7 +36,7 @@ public class UserServiceTest extends HibernateTestBase {
   }
 
   @Test
-  public void getShouldReturnUserById() throws Exception {
+  public void getShouldReturnUserById(){
 
     User user = new User("first name 1", "last name 1");
     userService.save(user);
@@ -46,7 +47,7 @@ public class UserServiceTest extends HibernateTestBase {
   }
 
   @Test
-  public void getShouldReturnEmptyOptionalIfNoUserWithSuchId() throws Exception {
+  public void getShouldReturnEmptyOptionalIfNoUserWithSuchId() {
 
     int nonExistentUserId = 123;
 
@@ -56,7 +57,7 @@ public class UserServiceTest extends HibernateTestBase {
   }
 
   @Test
-  public void getAllShouldReturnAllUsers() throws Exception {
+  public void getAllShouldReturnAllUsers() {
 
     User user1 = new User("first name 1", "last name 1");
     User user2 = new User("first name 2", "last name 2");
@@ -69,7 +70,7 @@ public class UserServiceTest extends HibernateTestBase {
   }
 
   @Test
-  public void changeFirstNameShouldChangeFirstName() throws Exception {
+  public void changeFirstNameShouldChangeFirstName() {
 
     User user = new User("first name", "last name");
     userService.save(user);
@@ -82,12 +83,14 @@ public class UserServiceTest extends HibernateTestBase {
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void changeFirstNameShouldThrowIllegalArgumentExceptionIfNoUserWithSuchId() throws Exception {
+  public void changeFirstNameShouldThrowIllegalArgumentExceptionIfNoUserWithSuchId() {
 
     int nonExistentUserId = 123;
     assertFalse(userService.get(nonExistentUserId).isPresent());
 
     userService.changeFirstName(nonExistentUserId, "new first name");
+
+    fail();
   }
 
   @Test
